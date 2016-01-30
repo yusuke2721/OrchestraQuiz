@@ -15,40 +15,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button1 = (Button)findViewById(R.id.button1);
-        Button button2 = (Button)findViewById(R.id.button2);
-        Button button3 = (Button)findViewById(R.id.button3);
-        Button button4 = (Button)findViewById(R.id.button4);
+        textView = (TextView) findViewById(R.id.textView1);
 
-        textView = (TextView)findViewById(R.id.textView1);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText("ア");
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText("イ");
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText("ウ");
-            }
-        });
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText("エ");
-            }
-        });
     }
+    public void OnClickButton(View view) {
+        switch(view.getId()) {
+            case R.id.button1:
+                textView.setText("ア");
+                break;
+            case R.id.button2:
+                textView.setText("イ");
+                break;
+            case R.id.button3:
+                textView.setText("ウ");
+                break;
+            case R.id.button4:
+                textView.setText("エ");
+                break;
+        }
 
+    }
 }
