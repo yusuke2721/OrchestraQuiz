@@ -18,4 +18,4 @@ AndroidStudio : http://nobuo-create.net/android-studio-start/
 AndroidStudio : https://akira-watson.com/android/adt-windows.html  
 AndroidStudio 日本語化 : http://www.hiskip.com/pg-notes/ide/androidstudio/584.html  
 GitHub & SourceTree : http://tontotakumi.com/web-seisaku/github-debut/  
-
+Git使用方法 : http://www.backlog.jp/git-guide/intro/intro1_1.html  
