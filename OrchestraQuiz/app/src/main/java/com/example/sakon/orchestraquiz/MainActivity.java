@@ -17,9 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private Button[] button = new Button[4];
     private Button nextButton;
 
-    //問題
+    //問題関連
     private int answer;
     private int questionNum;
+    private int rightAnsNum;
     private Question question = new Question();
     private ArrayList<Question> questionList = new ArrayList<Question>();
 
@@ -37,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
         button[3] = (Button) findViewById(R.id.button3);
         nextButton = (Button) findViewById(R.id.nextButton);
 
-        // TODO
+        // CSVデータの取り出し
         CSVParser parser = new CSVParser();
         Context context = getApplicationContext();
         parser.parse(context, questionList);
 
-        //問題数の初期化
+        //フィールドの初期化
         questionNum = 1;
+        rightAnsNum = 0;
 
         //最初の問題作成
         this.makeQuestion();
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         //正解判定
         if (answer == question.getAnsNumber() ){
             //正解時処理
+            this.rightAnsNum++;
             textView.setText("正解");
         }
         else {
@@ -94,13 +97,26 @@ public class MainActivity extends AppCompatActivity {
      * @param view 画面情報
      */
     public void ToNextQuestion(View view) {
-        for (int i = 0; i <= 3; i++) {
-            button[i].setEnabled(true);
-        }
-        nextButton.setVisibility(View.INVISIBLE);
 
         questionNum++;
-        this.makeQuestion();
+        if(questionNum <= questionList.size()) {
+            for (int i = 0; i <= 3; i++) {
+                button[i].setEnabled(true);
+            }
+            nextButton.setVisibility(View.INVISIBLE);
+
+            this.makeQuestion();
+        }
+        else
+        {
+            //全問題を解き終えた場合の処理
+            for (int i = 0; i <= 3; i++) {
+                button[i].setVisibility(View.INVISIBLE);
+            }
+            nextButton.setVisibility(View.INVISIBLE);
+            quizCount.setText("全問終了");
+            textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。");
+        }
     }
 
     /**
@@ -109,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public void makeQuestion () {
         //本来はここでCSVから取り出したものを使う。
 
+        /*
         //選択肢番号0
         this.question.addChoices(new MusicalSymbol("dolce","甘く"));
         //選択肢番号1
@@ -117,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         this.question.addChoices(new MusicalSymbol("forte", "強く"));
         //選択肢番号3
         this.question.addChoices(new MusicalSymbol("Fine", "終わり"));
+        */
+        //出題問題
+        this.question = questionList.get(questionNum - 1);
 
         //正解選択肢の番号
         this.question.setAnsNumber((int)(Math.random() * 4));
