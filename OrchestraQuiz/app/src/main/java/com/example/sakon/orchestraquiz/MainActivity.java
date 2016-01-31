@@ -8,14 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
+    //画面項目
+    private TextView quizCount;
     private TextView textView;
-    private int answer;
     private Button[] button = new Button[4];
     private Button nextButton;
 
+    //問題
+    private int answer;
+    private int questionNum;
     private Question question = new Question();
+    private ArrayList<Question> questionList = new ArrayList<Question>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //画面項目の取得
+        quizCount = (TextView) findViewById(R.id.quizCount);
         textView = (TextView) findViewById(R.id.textView1);
         button[0] = (Button) findViewById(R.id.button0);
         button[1] = (Button) findViewById(R.id.button1);
@@ -30,28 +38,16 @@ public class MainActivity extends AppCompatActivity {
         button[3] = (Button) findViewById(R.id.button3);
         nextButton = (Button) findViewById(R.id.nextButton);
 
-
-
         // TODO
         CSVParser parser = new CSVParser();
         Context context = getApplicationContext();
         parser.parse(context);
 
+        //問題数の初期化
+        questionNum = 1;
 
-
-        //問題作成
+        //最初の問題作成
         this.makeQuestion();
-
-        //問題文のセット
-        textView.setText(question.getChoice(question.getAnsNumber()).getSymbol());
-
-        //選択肢に文言をセット
-        for (int i = 0; i <= 3; i++) {
-            button[i].setText(question.getChoice(i).getMeaning());
-            button[i].setAllCaps(false);
-        }
-
-        //画面へのセット処理ここまで
     }
 
     /**
@@ -104,13 +100,8 @@ public class MainActivity extends AppCompatActivity {
         }
         nextButton.setVisibility(View.INVISIBLE);
 
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-
-        overridePendingTransition(0, 0);
-        startActivity(intent);
+        questionNum++;
+        this.makeQuestion();
     }
 
     /**
@@ -131,5 +122,18 @@ public class MainActivity extends AppCompatActivity {
 
         //正解選択肢の番号
         this.question.setAnsNumber(0);
+
+        //問題数のセット
+        quizCount.setText(String.valueOf(questionNum) + "問目");
+
+        //問題文のセット
+        textView.setText(question.getChoice(question.getAnsNumber()).getSymbol());
+
+        //選択肢に文言をセット
+        for (int i = 0; i <= 3; i++) {
+            button[i].setText(question.getChoice(i).getMeaning());
+            button[i].setAllCaps(false);
+        }
+
     }
 }
