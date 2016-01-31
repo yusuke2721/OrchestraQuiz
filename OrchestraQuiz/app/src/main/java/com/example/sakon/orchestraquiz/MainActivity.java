@@ -1,7 +1,6 @@
 package com.example.sakon.orchestraquiz;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO
         CSVParser parser = new CSVParser();
         Context context = getApplicationContext();
-        parser.parse(context);
+        parser.parse(context, questionList);
 
         //問題数の初期化
         questionNum = 1;
@@ -106,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 問題の作成処理
-     * question に 選択肢とする音楽記号と、正解選択肢の番号(0～3)を格納する。
      */
     public void makeQuestion () {
         //本来はここでCSVから取り出したものを使う。
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         this.question.addChoices(new MusicalSymbol("Fine", "終わり"));
 
         //正解選択肢の番号
-        this.question.setAnsNumber(0);
+        this.question.setAnsNumber((int)(Math.random() * 4));
 
         //問題数のセット
         quizCount.setText(String.valueOf(questionNum) + "問目");
