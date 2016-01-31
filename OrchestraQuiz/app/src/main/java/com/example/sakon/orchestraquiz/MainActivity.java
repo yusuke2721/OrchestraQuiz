@@ -1,5 +1,6 @@
 package com.example.sakon.orchestraquiz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
         button[2] = (Button) findViewById(R.id.button2);
         button[3] = (Button) findViewById(R.id.button3);
         nextButton = (Button) findViewById(R.id.nextButton);
+
+
+
+        // TODO
+        CSVParser parser = new CSVParser();
+        Context context = getApplicationContext();
+        parser.parse(context);
+
+
 
         //問題作成
         this.makeQuestion();
