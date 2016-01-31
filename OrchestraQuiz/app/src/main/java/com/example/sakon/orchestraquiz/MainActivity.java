@@ -1,5 +1,6 @@
 package com.example.sakon.orchestraquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private int answer;
     private Button[] button = new Button[4];
+    private Button nextButton;
 
     private Question question = new Question();
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         button[1] = (Button) findViewById(R.id.button1);
         button[2] = (Button) findViewById(R.id.button2);
         button[3] = (Button) findViewById(R.id.button3);
+        nextButton = (Button) findViewById(R.id.nextButton);
 
         //問題作成
         this.makeQuestion();
@@ -76,6 +79,28 @@ public class MainActivity extends AppCompatActivity {
             button[i].setEnabled(false);
             button[i].setText(question.getChoice(i).getSymbol() + " : " + question.getChoice(i).getMeaning());
         }
+
+        //次問題への遷移ボタン表示
+        nextButton.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 次の問題への移行
+     * @param view 画面情報
+     */
+    public void ToNextQuestion(View view) {
+        for (int i = 0; i <= 3; i++) {
+            button[i].setEnabled(true);
+        }
+        nextButton.setVisibility(View.INVISIBLE);
+
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
     /**
