@@ -1,6 +1,7 @@
 package com.example.sakon.orchestraquiz;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -123,18 +124,6 @@ public class MainActivity extends AppCompatActivity {
      * 問題の作成処理
      */
     public void makeQuestion () {
-        //本来はここでCSVから取り出したものを使う。
-
-        /*
-        //選択肢番号0
-        this.question.addChoices(new MusicalSymbol("dolce","甘く"));
-        //選択肢番号1
-        this.question.addChoices(new MusicalSymbol("piano", "弱く"));
-        //選択肢番号2
-        this.question.addChoices(new MusicalSymbol("forte", "強く"));
-        //選択肢番号3
-        this.question.addChoices(new MusicalSymbol("Fine", "終わり"));
-        */
         //出題問題
         this.question = questionList.get(questionNum - 1);
 
