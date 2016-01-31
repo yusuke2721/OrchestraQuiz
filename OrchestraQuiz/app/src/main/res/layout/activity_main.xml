@@ -17,14 +17,28 @@
         android:onClick="OnClickButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="選択肢1"
-        android:id="@+id/button1"
+        android:text="選択肢0"
+        android:id="@+id/button0"
         android:layout_below="@+id/textView1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="114dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:enabled="true" />
+
+    <Button
+        android:onClick="OnClickButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="選択肢1"
+        android:id="@+id/button1"
+        android:layout_below="@+id/button0"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:enabled="true" />
 
     <Button
         android:onClick="OnClickButton"
@@ -36,7 +50,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:enabled="true" />
 
     <Button
         android:onClick="OnClickButton"
@@ -48,18 +63,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:onClick="OnClickButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="選択肢4"
-        android:id="@+id/button4"
-        android:layout_below="@+id/button3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:enabled="true" />
 
 </RelativeLayout>
