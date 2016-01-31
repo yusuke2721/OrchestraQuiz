@@ -8,11 +8,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class CSVParser {
 
-    public static void parse(Context context) {
+    public static void parse(Context context, List<Question> questionList) {
         System.out.println("CSV読込メソッド開始");
 
         // AssetManagerの呼び出し
@@ -26,13 +28,12 @@ public class CSVParser {
             while ((line = bufferReader.readLine()) != null) {
                 // 各行が","で区切られていて4つの項目があるとする
                 StringTokenizer st = new StringTokenizer(line, ",");
-                String first = st.nextToken();
-                String second = st.nextToken();
-                String third = st.nextToken();
-                String fourth = st.nextToken();
-                String fifth = st.nextToken();
-
-                System.out.println(first + ", " + second + ", " + third + ", " + fourth + ", " + fifth);
+                Question question = new Question();
+                for (int i = 0; i < 4; i++) {
+                    MusicalSymbol musicalSymbol = new MusicalSymbol(st.nextToken(), st.nextToken());
+                    question.addChoices(musicalSymbol);
+                }
+                questionList.add(question);
             }
             bufferReader.close();
         } catch (IOException e) {
