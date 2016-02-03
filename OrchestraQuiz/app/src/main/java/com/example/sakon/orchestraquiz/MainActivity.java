@@ -1,7 +1,6 @@
 package com.example.sakon.orchestraquiz;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int questionNum;
     private int rightAnsNum;
     private Question question = new Question();
-    private ArrayList<Question> questionList = new ArrayList<Question>();
+    private List<Question> questionList = new ArrayList<Question>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         this.question = questionList.get(questionNum - 1);
 
         //正解選択肢の番号
-        this.question.setAnsNumber((int)(Math.random() * 4));
+        this.question.setAnsNumber((int) (Math.random() * 4));
 
         //問題数のセット
         quizCount.setText(String.valueOf(questionNum) + "問目");
@@ -141,6 +141,13 @@ public class MainActivity extends AppCompatActivity {
             button[i].setText(question.getChoice(i).getMeaning());
             button[i].setAllCaps(false);
         }
+    }
 
+    /**
+     * アプリケーションの終了
+     * @param view 画面情報
+     */
+    public void exitProgram(View view) {
+        moveTaskToBack(true);
     }
 }
