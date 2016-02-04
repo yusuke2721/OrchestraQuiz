@@ -4,7 +4,7 @@
 ##ƒƒ“ƒo[
 yusuke  
 king  
-atushi
+atsushi
 
 
 ##ŠJ”­ŠÂ‹«
