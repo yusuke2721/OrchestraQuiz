@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private Button[] button = new Button[4];
     private Button nextButton;
+    private Button exitButton;
+    private Button retryButton;
 
     //問題関連
     private int answer;
@@ -38,11 +40,16 @@ public class MainActivity extends AppCompatActivity {
         button[2] = (Button) findViewById(R.id.button2);
         button[3] = (Button) findViewById(R.id.button3);
         nextButton = (Button) findViewById(R.id.nextButton);
+        exitButton = (Button) findViewById(R.id.exitButton);
+        retryButton = (Button) findViewById(R.id.retryButton);
 
-        // CSVデータの取り出し
+        nextButton.setVisibility(View.INVISIBLE);
+        retryButton.setVisibility(View.INVISIBLE);
+
+        // CSVからクイズを読み込む
         CSVParser parser = new CSVParser();
         Context context = getApplicationContext();
-        parser.parse(context, questionList);
+        parser.createQuizList(context, questionList);
 
         //フィールドの初期化
         questionNum = 1;
@@ -54,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * クリック時イベント
+     *
      * @param view 画面情報
      */
     public void OnClickButton(View view) {
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.button0:
                 answer = 0;
                 break;
@@ -73,12 +81,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //正解判定
-        if (answer == question.getAnsNumber() ){
+        if (answer == question.getAnsNumber()) {
             //正解時処理
             this.rightAnsNum++;
             textView.setText("正解");
-        }
-        else {
+        } else {
             //不正解時処理
             textView.setText("不正解");
         }
@@ -95,35 +102,44 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 次の問題への移行
+     *
      * @param view 画面情報
      */
     public void ToNextQuestion(View view) {
 
         questionNum++;
-        if(questionNum <= questionList.size()) {
+        if (questionNum <= questionList.size()) {
             for (int i = 0; i <= 3; i++) {
                 button[i].setEnabled(true);
             }
             nextButton.setVisibility(View.INVISIBLE);
 
             this.makeQuestion();
-        }
-        else
-        {
+        } else {
             //全問題を解き終えた場合の処理
             for (int i = 0; i <= 3; i++) {
                 button[i].setVisibility(View.INVISIBLE);
             }
             nextButton.setVisibility(View.INVISIBLE);
             quizCount.setText("全問終了");
-            textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。");
+            if(questionList.size() == rightAnsNum) {
+                textView.setText(questionList.size()  + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
+                //TODO 全問正解特典として、三浦秘蔵写真を表示する
+
+
+            } else {
+                textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。");
+            }
+
+            retryButton.setVisibility(View.VISIBLE);
+            exitButton.setVisibility(View.VISIBLE);
         }
     }
 
     /**
      * 問題の作成処理
      */
-    public void makeQuestion () {
+    public void makeQuestion() {
         //出題問題
         this.question = questionList.get(questionNum - 1);
 
@@ -145,9 +161,26 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * アプリケーションの終了
-     * @param view 画面情報
+     *
+     * @param view
      */
     public void exitProgram(View view) {
         moveTaskToBack(true);
+    }
+
+    /**
+     * リトライボタン
+     *
+     * @param view
+     */
+    public void retry(View view) {
+        questionNum = 1;
+        rightAnsNum = 0;
+        this.makeQuestion();
+        for (int i = 0; i <= 3; i++) {
+            button[i].setVisibility(View.VISIBLE);
+            button[i].setEnabled(true);
+        }
+        retryButton.setVisibility(View.INVISIBLE);
     }
 }

@@ -10,27 +10,27 @@ public class MusicalSymbol {
     private String symbol;
     private String meaning;
 
-    MusicalSymbol () {
+    MusicalSymbol() {
     }
 
-    MusicalSymbol (String symbol, String meaning) {
+    MusicalSymbol(String symbol, String meaning) {
         this.symbol = symbol;
         this.meaning = meaning;
     }
 
-    public void setSymbol (String symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
-    public String getSymbol () {
+    public String getSymbol() {
         return this.symbol;
     }
 
-    public void setMeaning (String meaning) {
+    public void setMeaning(String meaning) {
         this.meaning = meaning;
     }
 
-    public String getMeaning () {
+    public String getMeaning() {
         return this.meaning;
     }
 }

@@ -15,10 +15,11 @@ public class CSVParser {
 
     /**
      * CSVファイルを読み込み、Questionクラスのリストを作成する
+     *
      * @param context
      * @param questionList
      */
-    public static void parse(Context context, List<Question> questionList) {
+    public static void createQuizList(Context context, List<Question> questionList) {
 
         // AssetManagerの呼び出し
         AssetManager assetManager = context.getResources().getAssets();

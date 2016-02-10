@@ -11,14 +11,15 @@ public class Question {
     private ArrayList<MusicalSymbol> choices = new ArrayList<MusicalSymbol>();
     private int ansNumber;
 
-    Question () {
+    Question() {
     }
 
     /**
      * 問題の選択肢をセットするメソッド
+     *
      * @param musicalSymbol 選択肢に追加する音楽記号
      */
-    public void addChoices (MusicalSymbol musicalSymbol) {
+    public void addChoices(MusicalSymbol musicalSymbol) {
         //既に選択肢が4つ格納されている場合はエラーとする
         try {
             if (this.choices.size() < 4) {
@@ -26,13 +27,12 @@ public class Question {
             } else {
                 //エラー時処理
             }
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             //エラー時処理
         }
     }
 
-    public MusicalSymbol getChoice (int indexNumber) {
+    public MusicalSymbol getChoice(int indexNumber) {
         try {
             if (this.choices.size() >= indexNumber + 1) {
                 return this.choices.get(indexNumber);
@@ -40,18 +40,17 @@ public class Question {
                 //エラー時処理
                 return null;
             }
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             //エラー時処理
             return null;
         }
     }
 
-    public void setAnsNumber (int ansNumber) {
+    public void setAnsNumber(int ansNumber) {
         this.ansNumber = ansNumber;
     }
 
-    public int getAnsNumber () {
+    public int getAnsNumber() {
         return this.ansNumber;
     }
 }
