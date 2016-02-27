@@ -1,7 +1,10 @@
-package com.kingsystems.orchestraquiz;
+package com.kingsystems.orchestraquiz.Service;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+
+import com.kingsystems.orchestraquiz.Model.MusicalSymbol;
+import com.kingsystems.orchestraquiz.Model.Question;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,9 +20,10 @@ public class CsvParser {
      * CSVファイルを読み込み、Questionクラスのリストを作成する
      *
      * @param context
-     * @param questionList
+     * @param questionList 問題リスト
+     * @param level 難易度
      */
-    public static void createQuizList(Context context, List<Question> questionList) {
+    public static void createQuizList(Context context, List<Question> questionList, String level) {
 
         // AssetManagerの呼び出し
         AssetManager assetManager = context.getResources().getAssets();

@@ -38,7 +38,7 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="114dp"
         android:enabled="true"
-        android:onClick="OnClickButton"
+        android:onClick="onClickButton"
         android:text="選択肢0" />
 
     <Button
@@ -51,7 +51,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button0"
         android:enabled="true"
-        android:onClick="OnClickButton"
+        android:onClick="onClickButton"
         android:text="選択肢1" />
 
     <Button
@@ -64,7 +64,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button1"
         android:enabled="true"
-        android:onClick="OnClickButton"
+        android:onClick="onClickButton"
         android:text="選択肢2" />
 
     <Button
@@ -77,7 +77,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button2"
         android:enabled="true"
-        android:onClick="OnClickButton"
+        android:onClick="onClickButton"
         android:text="選択肢3" />
 
     <Button
@@ -89,7 +89,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button3"
-        android:onClick="ToNextQuestion"
+        android:onClick="toNextQuestion"
         android:text="次の問題へ" />
 
     <Button
@@ -97,8 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:onClick="exitProgram"
-        android:text="終了"/>
+        android:onClick="toTopScreen"
+        android:text="やめる"/>
 
     <Button
         android:id="@+id/retryButton"
