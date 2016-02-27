@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.kingsystems.orchestraquiz.R;
 
@@ -21,29 +20,37 @@ public class TopActivity extends AppCompatActivity {
 
     /***
      * ボタンクリック時イベント
+     * 問題画面への遷移
+     *
      * @param view 画面情報
      */
     public void onClickButton(View view) {
         final Intent intent = new Intent(this, MainActivity.class);
 
+        //選択された難易度をバンドルにセット
         switch (view.getId()) {
             case R.id.level1Button:
-                intent.putExtra("level","初級");
+                intent.putExtra("level", "初級");
                 break;
             case R.id.level2Button:
-                intent.putExtra("level","中級");
+                intent.putExtra("level", "中級");
                 break;
             case R.id.level3Button:
-                intent.putExtra("level","上級");
+                intent.putExtra("level", "上級");
                 break;
         }
 
         //問題画面への遷移
         startActivity(intent);
-        }
+    }
 
+    /**
+     * アプリケーションの終了
+     *
+     * @param view 画面情報
+     */
     public void exitApplication(View view) {
         moveTaskToBack(true);
     }
 
-    }
+}

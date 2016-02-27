@@ -46,23 +46,18 @@ public class MainActivity extends AppCompatActivity {
         //画面項目の取得
         //問題数表示
         quizCount = (TextView) findViewById(R.id.quizCount);
-
         //問題文
         textView = (TextView) findViewById(R.id.textView1);
-
         //選択肢
         button[0] = (Button) findViewById(R.id.button0);
         button[1] = (Button) findViewById(R.id.button1);
         button[2] = (Button) findViewById(R.id.button2);
         button[3] = (Button) findViewById(R.id.button3);
-
         //次の問題へボタン
         nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setVisibility(View.INVISIBLE);
-
         //終了ボタン
         exitButton = (Button) findViewById(R.id.exitButton);
-
         //リトライボタン
         retryButton = (Button) findViewById(R.id.retryButton);
         retryButton.setVisibility(View.INVISIBLE);
@@ -88,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view 画面情報
      */
     public void onClickButton(View view) {
+        //どの回答が選ばれたかを取得
         switch (view.getId()) {
             case R.id.button0:
                 answer = 0;
@@ -103,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        //正解判定
+        //正解・不正解判定
         if (answer == question.getAnsNumber()) {
             //正解時処理
             this.rightAnsNum++;
@@ -129,33 +125,43 @@ public class MainActivity extends AppCompatActivity {
      * @param view 画面情報
      */
     public void toNextQuestion(View view) {
-
+        //現在問題数をカウントアップ
         questionNum++;
+
         if (questionNum <= questionList.size()) {
+            //次の問題がある場合
+
+            //ボタン状態の変更
             for (int i = 0; i <= 3; i++) {
                 button[i].setEnabled(true);
             }
             nextButton.setVisibility(View.INVISIBLE);
 
+            //次の問題へ移行
             this.makeQuestion();
+
         } else {
             //全問題を解き終えた場合の処理
+
+            //ボタン状態の変更
             for (int i = 0; i <= 3; i++) {
                 button[i].setVisibility(View.INVISIBLE);
             }
             nextButton.setVisibility(View.INVISIBLE);
-            quizCount.setText(level + "  全問終了");
-            if(questionList.size() == rightAnsNum) {
-                textView.setText(questionList.size()  + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
-                //TODO 全問正解特典として、左近秘蔵写真を表示する
-
-
-            } else {
-                textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。");
-            }
-
             retryButton.setVisibility(View.VISIBLE);
             exitButton.setVisibility(View.VISIBLE);
+
+            quizCount.setText(level + "  全問終了");
+
+            //全問正解時は処理分岐
+            if (questionList.size() == rightAnsNum) {
+                textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
+                //TODO 全問正解特典として、左近秘蔵写真を表示する
+
+            } else {
+                //全問正解でない場合
+                textView.setText(questionList.size() + " 問中 " + this.rightAnsNum + " 問正解です。");
+            }
         }
     }
 
@@ -188,8 +194,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void toTopScreen(View view) {
+        //問題数カウントの初期化
         this.initializeState();
 
+        //画面遷移
         final Intent intent = new Intent(this, TopActivity.class);
         startActivity(intent);
     }
@@ -200,7 +208,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void retry(View view) {
+        //問題数カウントの初期化
         this.initializeState();
+
+        //一問目の生成
         this.makeQuestion();
         for (int i = 0; i <= 3; i++) {
             button[i].setVisibility(View.VISIBLE);
