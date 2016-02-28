@@ -1,18 +1,15 @@
 package com.kingsystems.orchestraquiz.Model;
 
-import com.kingsystems.orchestraquiz.Model.MusicalSymbol;
-
-import java.util.ArrayList;
-
 /**
  * 問題クラス
  */
 public class Question {
+    //音楽記号
     private String symbol;
+
+    //音楽記号の意味　選択肢として使う
     private String[] meaning = new String[4];
 
-    private ArrayList<MusicalSymbol> choices = new ArrayList<MusicalSymbol>();
-    private int ansNumber;
 
     public Question() {
     }
@@ -44,44 +41,4 @@ public class Question {
         }
     }
 
-
-    /**
-     * 問題の選択肢をセットするメソッド
-     *
-     * @param musicalSymbol 選択肢に追加する音楽記号
-     */
-    public void addChoices(MusicalSymbol musicalSymbol) {
-        //既に選択肢が4つ格納されている場合はエラーとする
-        try {
-            if (this.choices.size() < 4) {
-                this.choices.add(musicalSymbol);
-            } else {
-                //エラー時処理
-            }
-        } catch (NullPointerException e) {
-            //エラー時処理
-        }
-    }
-
-    public MusicalSymbol getChoice(int indexNumber) {
-        try {
-            if (this.choices.size() >= indexNumber + 1) {
-                return this.choices.get(indexNumber);
-            } else {
-                //エラー時処理
-                return null;
-            }
-        } catch (NullPointerException e) {
-            //エラー時処理
-            return null;
-        }
-    }
-
-    public void setAnsNumber(int ansNumber) {
-        this.ansNumber = ansNumber;
-    }
-
-    public int getAnsNumber() {
-        return this.ansNumber;
-    }
 }

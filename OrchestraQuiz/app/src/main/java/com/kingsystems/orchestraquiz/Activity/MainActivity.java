@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView quizCount;
     private TextView textView;
     private Button[] button = new Button[4];
-    private Button nextButton;
+    private TextView nextText;
     private Button exitButton;
     private Button retryButton;
 
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     //難易度
     private String level;
+
+    //出題状態か解答表示状態かのステータス　0...出題　1...解答表示
+    private int questionState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         button[2] = (Button) findViewById(R.id.button2);
         button[3] = (Button) findViewById(R.id.button3);
         //次の問題へボタン
-        nextButton = (Button) findViewById(R.id.nextButton);
-        nextButton.setVisibility(View.INVISIBLE);
+        nextText = (TextView) findViewById(R.id.nextText);
+        nextText.setVisibility(View.INVISIBLE);
         //終了ボタン
         exitButton = (Button) findViewById(R.id.exitButton);
         //リトライボタン
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         //難易度をフィールドにセット
         level = getIntent().getStringExtra("level");
+
+        //出題状態に変更
+        questionState = 0;
 
         // CSVからクイズを読み込む
         questionList.clear();
@@ -120,53 +127,66 @@ public class MainActivity extends AppCompatActivity {
             button[i].setEnabled(false);
         }
 
+        //解答表示状態に変更
+        questionState = 1;
+
         //次問題への遷移ボタン表示
-        nextButton.setVisibility(View.VISIBLE);
+        nextText.setVisibility(View.VISIBLE);
     }
 
     /**
      * 次の問題への移行
      *
-     * @param view 画面情報
      */
-    public void toNextQuestion(View view) {
-        //現在問題数をカウントアップ
-        questionNum++;
+    public boolean onTouchEvent(MotionEvent event) {
+        //解答表示状態の時のみ処理を実施
+        if (questionState == 1) {
+            //出題状態に変更 (タッチイベント無効状態にする)
+            questionState = 0;
 
-        if (questionNum <= MAX_QUESTION_NUM) {
-            //次の問題がある場合
+            //現在問題数をカウントアップ
+            questionNum++;
 
-            //ボタン状態の変更
-            for (int i = 0; i <= 3; i++) {
-                button[i].setEnabled(true);
-            }
-            nextButton.setVisibility(View.INVISIBLE);
+            if (questionNum <= MAX_QUESTION_NUM) {
+                //次の問題がある場合
 
-            //次の問題へ移行
-            this.makeQuestion();
+                //ボタン状態の変更
+                for (int i = 0; i <= 3; i++) {
+                    button[i].setEnabled(true);
+                }
+                nextText.setVisibility(View.INVISIBLE);
 
-        } else {
-            //全問題を解き終えた場合の処理
-
-            //ボタン状態の変更
-            for (int i = 0; i <= 3; i++) {
-                button[i].setVisibility(View.INVISIBLE);
-            }
-            nextButton.setVisibility(View.INVISIBLE);
-            retryButton.setVisibility(View.VISIBLE);
-            exitButton.setVisibility(View.VISIBLE);
-
-            quizCount.setText(level + "  全問終了");
-
-            //全問正解時は処理分岐
-            if (MAX_QUESTION_NUM == rightAnsNum) {
-                textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
-                //TODO 全問正解特典として、左近秘蔵写真を表示する
+                //次の問題へ移行
+                this.makeQuestion();
+                return true;
 
             } else {
-                //全問正解でない場合
-                textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。");
+                //全問題を解き終えた場合の処理
+
+                //ボタン状態の変更
+                for (int i = 0; i <= 3; i++) {
+                    button[i].setVisibility(View.INVISIBLE);
+                }
+                nextText.setVisibility(View.INVISIBLE);
+                retryButton.setVisibility(View.VISIBLE);
+                exitButton.setVisibility(View.VISIBLE);
+
+                quizCount.setText(level + "  全問終了");
+
+                //全問正解時は処理分岐
+                if (MAX_QUESTION_NUM == rightAnsNum) {
+                    textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
+                    //TODO 全問正解特典として、左近秘蔵写真を表示する
+
+                } else {
+                    //全問正解でない場合
+                    textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。");
+                }
+                return true;
             }
+        } else {
+            //出題状態の時は何も処理を行わない
+            return true;
         }
     }
 
@@ -249,4 +269,5 @@ public class MainActivity extends AppCompatActivity {
         //正答数の初期化
         rightAnsNum = 0;
     }
+
 }

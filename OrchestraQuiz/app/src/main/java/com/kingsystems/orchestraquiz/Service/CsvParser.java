@@ -3,11 +3,9 @@ package com.kingsystems.orchestraquiz.Service;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import com.kingsystems.orchestraquiz.Model.MusicalSymbol;
 import com.kingsystems.orchestraquiz.Model.Question;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -49,7 +47,7 @@ public class CsvParser {
                 //QuestionListを作成
                 question.setSymbol(st.nextToken());
                 for (int i = 0; i < 4; i++) {
-                    question.setMeaning(st.nextToken(),i);
+                    question.setMeaning(st.nextToken(), i);
                 }
                 questionList.add(question);
             }

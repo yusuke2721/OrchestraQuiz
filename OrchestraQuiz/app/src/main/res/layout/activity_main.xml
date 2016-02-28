@@ -80,8 +80,8 @@
         android:onClick="onClickButton"
         android:text="選択肢3" />
 
-    <Button
-        android:id="@+id/nextButton"
+    <TextView
+        android:id="@+id/nextText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -89,8 +89,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button3"
-        android:onClick="toNextQuestion"
-        android:text="次の問題へ" />
+        android:text="画面タッチで次の問題へ" />
 
     <Button
         android:id="@+id/exitButton"
