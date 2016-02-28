@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     //１回のゲームでの問題数
-    static final int MAX_QUESTION_NUM = 5;
+    static final int MAX_QUESTION_NUM = 10;
 
     //画面項目
     private TextView quizCount;
