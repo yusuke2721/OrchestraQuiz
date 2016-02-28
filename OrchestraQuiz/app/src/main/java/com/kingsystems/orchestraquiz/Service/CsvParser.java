@@ -24,15 +24,23 @@ public class CsvParser {
      * @param level 難易度
      */
     public static void createQuizList(Context context, List<Question> questionList, String level) {
-
-        // AssetManagerの呼び出し
-        AssetManager assetManager = context.getResources().getAssets();
         try {
+            String fileName = "";
+            if(level.equals("初級")) {
+                fileName = "MusicalSymbolQuiz_level1.csv";
+            } else if(level.equals("中級")) {
+                fileName = "MusicalSymbolQuiz_level2.csv";
+            } else if(level.equals("上級")) {
+                fileName = "MusicalSymbolQuiz_level3.csv";
+            }
+
             // CSVファイルの読み込み
-            InputStream is = assetManager.open("MusicalSymbolQuiz.csv");
-            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            AssetManager assetManager = context.getResources().getAssets();
+            InputStream inputStream = assetManager.open(fileName);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferReader = new BufferedReader(inputStreamReader);
             String line = "";
+            bufferReader.readLine(); // タイトル行を読み捨てる
 
             while ((line = bufferReader.readLine()) != null) {
                 Question question = new Question();
@@ -46,7 +54,7 @@ public class CsvParser {
             }
             Collections.shuffle(questionList);
             bufferReader.close();
-
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
