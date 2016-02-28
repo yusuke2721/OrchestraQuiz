@@ -45,17 +45,18 @@ public class CsvParser {
             while ((line = bufferReader.readLine()) != null) {
                 Question question = new Question();
                 StringTokenizer st = new StringTokenizer(line, ",");
-                // MusicalSymbolクラスを作成し、4つ1組でQuestionクラスのリストを作成
+
+                //QuestionListを作成
+                question.setSymbol(st.nextToken());
                 for (int i = 0; i < 4; i++) {
-                    MusicalSymbol musicalSymbol = new MusicalSymbol(st.nextToken(), st.nextToken());
-                    question.addChoices(musicalSymbol);
+                    question.setMeaning(st.nextToken(),i);
                 }
                 questionList.add(question);
             }
             Collections.shuffle(questionList);
             bufferReader.close();
             
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

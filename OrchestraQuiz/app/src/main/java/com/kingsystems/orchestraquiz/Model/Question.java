@@ -8,11 +8,42 @@ import java.util.ArrayList;
  * 問題クラス
  */
 public class Question {
+    private String symbol;
+    private String[] meaning = new String[4];
+
     private ArrayList<MusicalSymbol> choices = new ArrayList<MusicalSymbol>();
     private int ansNumber;
 
     public Question() {
     }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return this.symbol;
+    }
+
+    public void setMeaning(String meaning, int index) {
+        if (index < this.meaning.length) {
+            this.meaning[index] = meaning;
+        } else {
+            //エラー処理
+            System.out.println("存在しないindexへのset");
+        }
+    }
+
+    public String getMeaning(int index) {
+        if (index < this.meaning.length) {
+            return this.meaning[index];
+        } else {
+            //エラー時処理
+            System.out.println("存在しないindexからのget");
+            return null;
+        }
+    }
+
 
     /**
      * 問題の選択肢をセットするメソッド
