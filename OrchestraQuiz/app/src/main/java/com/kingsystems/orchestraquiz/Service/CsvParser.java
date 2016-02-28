@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import com.kingsystems.orchestraquiz.Model.Question;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -38,13 +39,11 @@ public class CsvParser {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferReader = new BufferedReader(inputStreamReader);
             String line = "";
-            bufferReader.readLine(); // タイトル行を読み捨てる
+            bufferReader.readLine();    // タイトル行を読み捨てる
 
             while ((line = bufferReader.readLine()) != null) {
                 Question question = new Question();
                 StringTokenizer st = new StringTokenizer(line, ",");
-
-                //QuestionListを作成
                 question.setSymbol(st.nextToken());
                 for (int i = 0; i < 4; i++) {
                     question.setMeaning(st.nextToken(), i);
@@ -53,8 +52,8 @@ public class CsvParser {
             }
             Collections.shuffle(questionList);
             bufferReader.close();
-            
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingsystems.orchestraquiz.Service.CsvParser;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView nextText;
     private Button exitButton;
     private Button retryButton;
+    private ImageView tokutenGazou;
 
     //問題関連
     private String answer;
@@ -62,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         button[3] = (Button) findViewById(R.id.button3);
         //次の問題へボタン
         nextText = (TextView) findViewById(R.id.nextText);
-        nextText.setVisibility(View.INVISIBLE);
         //終了ボタン
         exitButton = (Button) findViewById(R.id.exitButton);
         //リトライボタン
         retryButton = (Button) findViewById(R.id.retryButton);
-        retryButton.setVisibility(View.INVISIBLE);
+        //特典画像
+        tokutenGazou = (ImageView) findViewById(R.id.imageView);
 
         //難易度をフィールドにセット
         level = getIntent().getStringExtra("level");
@@ -75,13 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //出題状態に変更
         questionState = 0;
 
-        // CSVからクイズを読み込む
-        questionList.clear();
-        CsvParser parser = new CsvParser();
-        Context context = getApplicationContext();
-        parser.createQuizList(context, questionList, level);
-
-        //フィールドの初期化
+        //初期化
         this.initializeState();
 
         //最初の問題作成
@@ -136,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 次の問題への移行
-     *
      */
     public boolean onTouchEvent(MotionEvent event) {
         //解答表示状態の時のみ処理を実施
@@ -175,9 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //全問正解時は処理分岐
                 if (MAX_QUESTION_NUM == rightAnsNum) {
-                    textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！！！！！！");
-                    //TODO 全問正解特典として、左近秘蔵写真を表示する
-
+                    textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。\n全問正解！！\nぐぬぬ・・・");
+                    tokutenGazou.setVisibility(View.VISIBLE);
                 } else {
                     //全問正解でない場合
                     textView.setText(MAX_QUESTION_NUM + " 問中 " + this.rightAnsNum + " 問正解です。");
@@ -241,17 +235,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void retry(View view) {
-        //問題数カウントの初期化
+
         this.initializeState();
-
-        // CSVからクイズを読み込む
-        questionList.clear();
-        CsvParser parser = new CsvParser();
-        Context context = getApplicationContext();
-        parser.createQuizList(context, questionList, level);
-
-        //一問目の生成
         this.makeQuestion();
+
         for (int i = 0; i <= 3; i++) {
             button[i].setVisibility(View.VISIBLE);
             button[i].setEnabled(true);
@@ -265,9 +252,18 @@ public class MainActivity extends AppCompatActivity {
     public void initializeState() {
         //現在問題数＝１問目
         questionNum = 1;
-
         //正答数の初期化
         rightAnsNum = 0;
+
+        // CSVからクイズを読み込む
+        questionList.clear();
+        CsvParser parser = new CsvParser();
+        Context context = getApplicationContext();
+        parser.createQuizList(context, questionList, level);
+
+        nextText.setVisibility(View.INVISIBLE);
+        retryButton.setVisibility(View.INVISIBLE);
+        tokutenGazou.setVisibility(View.INVISIBLE);
     }
 
 }

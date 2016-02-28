@@ -108,4 +108,12 @@
         android:onClick="retry"
         android:text="リトライ" />
 
+    <ImageView
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:id="@+id/imageView"
+        android:src="@drawable/king_01"
+        android:layout_alignTop="@+id/button0"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
