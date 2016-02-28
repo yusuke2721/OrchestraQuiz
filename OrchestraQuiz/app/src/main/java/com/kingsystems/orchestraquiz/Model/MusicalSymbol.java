@@ -1,19 +1,18 @@
-package com.kingsystems.orchestraquiz;
+package com.kingsystems.orchestraquiz.Model;
 
 /**
- * 選択肢となる音楽記号のクラス
+ * 音楽記号クラス
  * symbol : 音楽記号
  * meaning : 音楽記号の意味
- * Created by Kazuma on 2016/01/31.
  */
 public class MusicalSymbol {
     private String symbol;
     private String meaning;
 
-    MusicalSymbol() {
+    public MusicalSymbol() {
     }
 
-    MusicalSymbol(String symbol, String meaning) {
+    public MusicalSymbol(String symbol, String meaning) {
         this.symbol = symbol;
         this.meaning = meaning;
     }

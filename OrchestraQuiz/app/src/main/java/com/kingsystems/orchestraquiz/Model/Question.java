@@ -1,17 +1,17 @@
-package com.kingsystems.orchestraquiz;
+package com.kingsystems.orchestraquiz.Model;
 
-import java.lang.reflect.Array;
+import com.kingsystems.orchestraquiz.Model.MusicalSymbol;
+
 import java.util.ArrayList;
 
 /**
  * 問題クラス
- * Created by Kazuma on 2016/01/31.
  */
 public class Question {
     private ArrayList<MusicalSymbol> choices = new ArrayList<MusicalSymbol>();
     private int ansNumber;
 
-    Question() {
+    public Question() {
     }
 
     /**
